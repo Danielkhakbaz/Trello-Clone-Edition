@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, InputBase } from "@material-ui/core";
+import { Box, InputBase, AppBar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 

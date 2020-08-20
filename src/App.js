@@ -12,7 +12,6 @@ import Nav from "./components/Nav/Nav";
 const useStyle = makeStyles((theme) => ({
     root: {
         minHeight: "100vh",
-        background: "green",
         width: "100%",
         overflowY: "auto",
     },
@@ -129,6 +128,11 @@ export default function App() {
         setValue(titleValue);
     };
 
+    const handleDelete = (cardID) => {
+        const cards = data.lists.cards.filter((card) => card !== cardID);
+        setData(cards);
+    };
+
     return (
         <StoreApi.Provider
             value={{ addMoreCard, addMoreList, updateListTitle }}
@@ -156,6 +160,7 @@ export default function App() {
                                             list={list}
                                             key={listId}
                                             index={index}
+                                            onHandleDeleteList={handleDelete}
                                         />
                                     );
                                 })}
