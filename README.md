@@ -1,3 +1,3 @@
 ## Trello-Clone
-This Program is Coded in JavaScript with its Popular Framework(React).
+This Program is Coded in JavaScript and its Popular Framework(React).
 I used Material UI for Designing.
