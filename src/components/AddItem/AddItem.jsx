@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InputCard from "../InputCard/InputCard";
+import CardInput from "../CardInput/CardInput.jsx";
 import { Paper, Typography, Collapse } from "@material-ui/core";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -19,7 +19,7 @@ const useStyle = makeStyles((theme) => ({
     },
 }));
 
-const InputContainer = ({ listId, type }) => {
+const AddItem = ({ listId, type }) => {
     const classes = useStyle();
 
     const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ const InputContainer = ({ listId, type }) => {
     return (
         <div className={classes.root}>
             <Collapse in={open}>
-                <InputCard listId={listId} type={type} setOpen={setOpen} />
+                <CardInput listId={listId} type={type} setOpen={setOpen} />
             </Collapse>
             <Collapse in={!open}>
                 <Paper
@@ -43,9 +43,9 @@ const InputContainer = ({ listId, type }) => {
     );
 };
 
-export default InputContainer;
+export default AddItem;
 
-InputContainer.propTypes = {
+AddItem.propTypes = {
     listId: PropTypes.any,
     type: PropTypes.string.isRequired,
 };

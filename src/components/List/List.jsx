@@ -1,7 +1,7 @@
 import React from "react";
-import Title from "../Title/Title";
-import Cards from "../Cards/Cards";
-import InputContainer from "../InputContainer/InputContainer";
+import ListTitle from "../ListTitle/ListTitle.jsx";
+import Cards from "../Cards/Cards.jsx";
+import AddItem from "../AddItem/AddItem.jsx";
 import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Droppable, Draggable } from "react-beautiful-dnd";
@@ -29,7 +29,7 @@ const List = ({ list, index, onHandleDeleteList }) => {
                         className={classes.root}
                         {...provided.dragHandleProps}
                     >
-                        <Title
+                        <ListTitle
                             title={list.title}
                             listId={list.id}
                             onHandleDeleteList={onHandleDeleteList}
@@ -52,7 +52,7 @@ const List = ({ list, index, onHandleDeleteList }) => {
                                 </div>
                             )}
                         </Droppable>
-                        <InputContainer listId={list.id} type="card" />
+                        <AddItem listId={list.id} type="card" />
                     </Paper>
                 </div>
             )}

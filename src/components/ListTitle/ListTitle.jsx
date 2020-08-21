@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Title = ({ title }) => {
+const ListTitle = ({ title }) => {
     const styles = useStyles();
 
     const [newTitleList, setNewTitleList] = useState(title);
@@ -61,9 +61,8 @@ const Title = ({ title }) => {
     );
 };
 
-Title.propTypes = {
+ListTitle.propTypes = {
     title: PropTypes.string.isRequired,
-    listId: PropTypes.string.isRequired,
 };
 
-export default Title;
+export default ListTitle;

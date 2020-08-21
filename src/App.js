@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Nav from "./components/Nav/Nav";
-import List from "./components/List/List";
-import InputContainer from "./components/InputContainer/InputContainer";
+import List from "./components/List/List.jsx";
+import InputContainer from "./components/AddItem/AddItem.jsx";
 import StoreApi from "./utils/storeApi";
 import store from "./utils/store";
 import { makeStyles } from "@material-ui/core/styles";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import "./Styles/Main.scss";
 
 const useStyle = makeStyles(() => ({
     root: {
         width: "100%",
-        minHeight: "100vh",
-        overflowY: "auto",
+        height: "100vh",
     },
     listContainer: {
         display: "flex",

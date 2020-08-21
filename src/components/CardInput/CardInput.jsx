@@ -26,7 +26,7 @@ const useStyle = makeStyles((theme) => ({
     },
 }));
 
-const InputCard = ({ setOpen, listId, type }) => {
+const CardInput = ({ setOpen, listId, type }) => {
     const classes = useStyle();
 
     const [title, setTitle] = useState("");
@@ -85,9 +85,9 @@ const InputCard = ({ setOpen, listId, type }) => {
     );
 };
 
-export default InputCard;
+export default CardInput;
 
-InputCard.propTypes = {
+CardInput.propTypes = {
     setOpen: PropTypes.func,
     listId: PropTypes.any,
     type: PropTypes.string.isRequired,
