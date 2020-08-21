@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Paper, InputBase, Button, IconButton } from "@material-ui/core";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
-import storeApi from "../../utils/storeApi";
+import APIContext from "../../Services/API/APIContext";
 import PropTypes from "prop-types";
 
 const useStyle = makeStyles((theme) => ({
@@ -30,7 +30,7 @@ const CardInput = ({ setOpen, listId, type }) => {
     const classes = useStyle();
 
     const [title, setTitle] = useState("");
-    const { addMoreCard, addMoreList } = useContext(storeApi);
+    const { addMoreCard, addMoreList } = useContext(APIContext);
 
     const handleChangeInput = (e) => {
         setTitle(e.target.value);

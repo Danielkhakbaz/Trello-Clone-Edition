@@ -3,8 +3,8 @@ import Navbar from "./components/Navbar/Navbar";
 import Nav from "./components/Nav/Nav";
 import List from "./components/List/List.jsx";
 import InputContainer from "./components/AddItem/AddItem.jsx";
-import StoreApi from "./utils/storeApi";
-import store from "./utils/store";
+import APIContext from "./Services/API/APIContext";
+import APIService from "./Services/API/FakeAPIService";
 import { makeStyles } from "@material-ui/core/styles";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "./Styles/Main.scss";
@@ -22,7 +22,7 @@ const useStyle = makeStyles(() => ({
 const App = () => {
     const classes = useStyle();
 
-    const [data, setData] = useState(store);
+    const [data, setData] = useState(APIService);
     const [value, setValue] = useState("");
 
     const addMoreCard = (title, listId) => {
@@ -131,7 +131,7 @@ const App = () => {
     };
 
     return (
-        <StoreApi.Provider
+        <APIContext.Provider
             value={{ addMoreCard, addMoreList, updateListTitle }}
         >
             <div className={classes.root}>
@@ -170,7 +170,7 @@ const App = () => {
                     </Droppable>
                 </DragDropContext>
             </div>
-        </StoreApi.Provider>
+        </APIContext.Provider>
     );
 };
 

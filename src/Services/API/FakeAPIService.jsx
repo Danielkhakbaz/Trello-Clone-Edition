@@ -12,7 +12,6 @@ const cards = [
         title: "Third Task",
     },
 ];
-
 const data = {
     lists: {
         "list-1": {
