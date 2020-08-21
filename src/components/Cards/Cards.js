@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent, InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Draggable } from "react-beautiful-dnd";
+import PropTypes from "prop-types";
 
 const useStyle = makeStyles(() => ({
     card: {
@@ -15,12 +16,14 @@ const useStyle = makeStyles(() => ({
         fontSize: "15px",
     },
 }));
-export default function Cards({ card, index }) {
+
+const Cards = ({ card, index }) => {
     const styles = useStyle();
 
-    const [tastTitle, setTaskTitle] = useState(card.title);
+    const [tastTitleCard, setTaskTitleCard] = useState(card.title);
+
     const settitleListValue = (titleValue) => {
-        setTaskTitle(titleValue);
+        setTaskTitleCard(titleValue);
     };
     const controlEnterKey = (e) => {
         if (e.keyCode === 13) {
@@ -40,7 +43,7 @@ export default function Cards({ card, index }) {
                     <CardContent>
                         <InputBase
                             className={styles.input}
-                            value={tastTitle}
+                            value={tastTitleCard}
                             placeholder="Type Task's Title here"
                             fullWidth
                             onChange={(e) =>
@@ -53,4 +56,11 @@ export default function Cards({ card, index }) {
             )}
         </Draggable>
     );
-}
+};
+
+Cards.propTypes = {
+    card: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+};
+
+export default Cards;

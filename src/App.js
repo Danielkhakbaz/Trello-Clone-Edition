@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
-import List from "./components/List/List";
-import store from "./utils/store";
-import StoreApi from "./utils/storeApi";
-import InputContainer from "./components/Input/InputContainer";
-import { makeStyles } from "@material-ui/core/styles";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Navbar from "./components/Navbar/Navbar";
 import Nav from "./components/Nav/Nav";
+import List from "./components/List/List";
+import InputContainer from "./components/InputContainer/InputContainer";
+import StoreApi from "./utils/storeApi";
+import store from "./utils/store";
+import { makeStyles } from "@material-ui/core/styles";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles(() => ({
     root: {
-        minHeight: "100vh",
         width: "100%",
+        minHeight: "100vh",
         overflowY: "auto",
     },
     listContainer: {
@@ -20,18 +19,18 @@ const useStyle = makeStyles((theme) => ({
     },
 }));
 
-export default function App() {
-    const [data, setData] = useState(store);
+const App = () => {
     const classes = useStyle();
-    const addMoreCard = (title, listId) => {
-        console.log(title, listId);
 
-        const newCardId = uuid();
+    const [data, setData] = useState(store);
+    const [value, setValue] = useState("");
+
+    const addMoreCard = (title, listId) => {
+        const newCardId = data.length;
         const newCard = {
             id: newCardId,
             title,
         };
-
         const list = data.lists[listId];
         list.cards = [...list.cards, newCard];
 
@@ -42,16 +41,17 @@ export default function App() {
                 [listId]: list,
             },
         };
+
         setData(newState);
     };
-
     const addMoreList = (title) => {
-        const newListId = uuid();
+        const newListId = data.length;
         const newList = {
             id: newListId,
             title,
             cards: [],
         };
+
         const newState = {
             listIds: [...data.listIds, newListId],
             lists: {
@@ -59,9 +59,9 @@ export default function App() {
                 [newListId]: newList,
             },
         };
+
         setData(newState);
     };
-
     const updateListTitle = (title, listId) => {
         const list = data.lists[listId];
         list.title = title;
@@ -73,12 +73,11 @@ export default function App() {
                 [listId]: list,
             },
         };
+
         setData(newState);
     };
-
     const onDragEnd = (result) => {
         const { destination, source, draggableId, type } = result;
-        console.log("destination", destination, "source", source, draggableId);
 
         if (!destination) {
             return;
@@ -119,16 +118,14 @@ export default function App() {
                     [destinationList.id]: destinationList,
                 },
             };
+
             setData(newState);
         }
     };
-
-    const [value, setValue] = useState("");
-    const handle = (titleValue) => {
+    const handleTitleInput = (titleValue) => {
         setValue(titleValue);
     };
-
-    const handleDelete = (cardID) => {
+    const handleDeleteList = (cardID) => {
         const cards = data.lists.cards.filter((card) => card !== cardID);
         setData(cards);
     };
@@ -139,7 +136,7 @@ export default function App() {
         >
             <div className={classes.root}>
                 <Navbar />
-                <Nav inputValue={value} onChangeInput={handle} />
+                <Nav inputValue={value} onTitleChange={handleTitleInput} />
 
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable
@@ -157,10 +154,12 @@ export default function App() {
                                     const list = data.lists[listId];
                                     return (
                                         <List
+                                            index={index}
                                             list={list}
                                             key={listId}
-                                            index={index}
-                                            onHandleDeleteList={handleDelete}
+                                            onHandleDeleteList={
+                                                handleDeleteList
+                                            }
                                         />
                                     );
                                 })}
@@ -173,4 +172,6 @@ export default function App() {
             </div>
         </StoreApi.Provider>
     );
-}
+};
+
+export default App;

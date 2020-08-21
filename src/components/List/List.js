@@ -1,10 +1,11 @@
 import React from "react";
-import { Paper, Typography, CssBaseline } from "@material-ui/core";
+import Title from "../Title/Title";
+import Cards from "../Cards/Cards";
+import InputContainer from "../InputContainer/InputContainer";
+import { Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Title from "./Title";
-import Cards from "../Cards";
-import InputContainer from "../Input/InputContainer";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import PropTypes from "prop-types";
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -16,8 +17,10 @@ const useStyle = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
     },
 }));
-export default function List({ list, index, onHandleDeleteList }) {
+
+const List = ({ list, index, onHandleDeleteList }) => {
     const classes = useStyle();
+
     return (
         <Draggable draggableId={list.id} index={index}>
             {(provided) => (
@@ -26,7 +29,6 @@ export default function List({ list, index, onHandleDeleteList }) {
                         className={classes.root}
                         {...provided.dragHandleProps}
                     >
-                        <CssBaseline />
                         <Title
                             title={list.title}
                             listId={list.id}
@@ -35,26 +37,33 @@ export default function List({ list, index, onHandleDeleteList }) {
                         <Droppable droppableId={list.id}>
                             {(provided) => (
                                 <div
+                                    className={classes.cardContainer}
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    className={classes.cardContainer}
                                 >
                                     {list.cards.map((card, index) => (
                                         <Cards
-                                            key={card.id}
                                             card={card}
                                             index={index}
+                                            key={card.id}
                                         />
                                     ))}
                                     {provided.placeholder}
                                 </div>
                             )}
                         </Droppable>
-
                         <InputContainer listId={list.id} type="card" />
                     </Paper>
                 </div>
             )}
         </Draggable>
     );
-}
+};
+
+export default List;
+
+List.propTypes = {
+    list: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+    onHandleDeleteList: PropTypes.func.isRequired,
+};

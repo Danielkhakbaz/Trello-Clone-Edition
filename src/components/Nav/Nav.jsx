@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, InputBase, AppBar } from "@material-ui/core";
+import { Box, InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Nav = ({ inputValue, onChangeInput }) => {
+const Nav = ({ inputValue, onTitleChange }) => {
     const styles = useStyles();
 
     const controlEnterKey = (e) => {
@@ -37,7 +37,7 @@ const Nav = ({ inputValue, onChangeInput }) => {
                         className={styles.input}
                         value={inputValue}
                         placeholder="Type Task's Title here"
-                        onChange={(e) => onChangeInput(e.currentTarget.value)}
+                        onChange={(e) => onTitleChange(e.currentTarget.value)}
                         onKeyDown={controlEnterKey}
                     />
                 </form>
@@ -48,7 +48,7 @@ const Nav = ({ inputValue, onChangeInput }) => {
 
 Nav.propTypes = {
     inputValue: PropTypes.string.isRequired,
-    onChangeInput: PropTypes.func.isRequired,
+    onChangeInput: PropTypes.any,
 };
 
 export default Nav;

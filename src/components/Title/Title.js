@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
-import { InputBase, Paper, Box } from "@material-ui/core";
+import React, { useState } from "react";
+import { InputBase, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import storeApi from "../../utils/storeApi";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1, 1, 0, 1),
         padding: theme.spacing(1),
     },
+    form: {
+        flexGrow: "1",
+    },
     input: {
         fontSize: "15px",
         fontWeight: "700",
@@ -24,48 +27,43 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: "hsla(0,0%,100%,.32)",
         },
     },
-    form: {
-        flexGrow: "1",
-    },
-    moreIcon: {
-        color: "black",
-        flexGrow: "1",
-        alignSelf: "center",
-    },
-    class: {
-        margin: theme.spacing(1),
-    },
-    card: {
-        margin: theme.spacing(1),
-    },
 }));
-export default function Title({ title, listId }) {
-    const [newTitle, setNewTitle] = useState(title);
-    const { updateListTitle } = useContext(storeApi);
-    const styles = useStyles();
-    const handleOnChange = (value) => {
-        setNewTitle(value);
-    };
 
+const Title = ({ title }) => {
+    const styles = useStyles();
+
+    const [newTitleList, setNewTitleList] = useState(title);
+
+    const handleListTitle = (value) => {
+        setNewTitleList(value);
+    };
     const controlEnterKey = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
         }
     };
+
     return (
         <div className={styles.list}>
             <Box className={styles.box} p={1}>
                 <form className={styles.form} autoComplete="off" noValidate>
                     <InputBase
                         className={styles.input}
-                        value={newTitle}
+                        value={newTitleList}
                         placeholder="Type Task's Title here"
                         fullWidth
-                        onChange={(e) => handleOnChange(e.currentTarget.value)}
+                        onChange={(e) => handleListTitle(e.currentTarget.value)}
                         onKeyDown={controlEnterKey}
                     />
                 </form>
             </Box>
         </div>
     );
-}
+};
+
+Title.propTypes = {
+    title: PropTypes.string.isRequired,
+    listId: PropTypes.string.isRequired,
+};
+
+export default Title;

@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Paper, InputBase, Button, IconButton } from "@material-ui/core";
-import ClearIcon from "@material-ui/icons/Clear";
 import { makeStyles, fade } from "@material-ui/core/styles";
+import ClearIcon from "@material-ui/icons/Clear";
 import storeApi from "../../utils/storeApi";
+import PropTypes from "prop-types";
 
 const useStyle = makeStyles((theme) => ({
     card: {
@@ -13,6 +14,9 @@ const useStyle = makeStyles((theme) => ({
     input: {
         margin: theme.spacing(1),
     },
+    confirm: {
+        margin: theme.spacing(0, 1, 1, 1),
+    },
     btnConfirm: {
         background: "#4bbf6b",
         color: "#fff",
@@ -20,16 +24,15 @@ const useStyle = makeStyles((theme) => ({
             background: fade("#4bbf6b", 0.75),
         },
     },
-    confirm: {
-        margin: theme.spacing(0, 1, 1, 1),
-    },
 }));
-export default function InputCard({ setOpen, listId, type }) {
-    const classes = useStyle();
-    const { addMoreCard, addMoreList } = useContext(storeApi);
-    const [title, setTitle] = useState("");
 
-    const handleOnChange = (e) => {
+const InputCard = ({ setOpen, listId, type }) => {
+    const classes = useStyle();
+
+    const [title, setTitle] = useState("");
+    const { addMoreCard, addMoreList } = useContext(storeApi);
+
+    const handleChangeInput = (e) => {
         setTitle(e.target.value);
     };
     const handleBtnConfirm = () => {
@@ -49,10 +52,6 @@ export default function InputCard({ setOpen, listId, type }) {
             <div>
                 <Paper className={classes.card}>
                     <InputBase
-                        onChange={handleOnChange}
-                        multiline
-                        onBlur={() => setOpen(false)}
-                        fullWidth
                         inputProps={{
                             className: classes.input,
                         }}
@@ -62,6 +61,10 @@ export default function InputCard({ setOpen, listId, type }) {
                                 ? "Enter a title of this card.."
                                 : "Enter list title..."
                         }
+                        fullWidth
+                        multiline
+                        onChange={handleChangeInput}
+                        onBlur={() => setOpen(false)}
                     />
                 </Paper>
             </div>
@@ -80,4 +83,12 @@ export default function InputCard({ setOpen, listId, type }) {
             </div>
         </div>
     );
-}
+};
+
+export default InputCard;
+
+InputCard.propTypes = {
+    setOpen: PropTypes.func,
+    listId: PropTypes.any,
+    type: PropTypes.string.isRequired,
+};
